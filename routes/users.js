@@ -3,9 +3,13 @@ const router = express.Router()
 
 router.use(logger)
 
+const users = [{ name: "Kyle" }, { name: "Sally" }]
+
 router.get("/", (req, res) => {
   console.log(req.query.name)
-  res.send("User List")
+  console.log(Object.keys(users))
+  // res.send("User List")
+  res.render("users/user", { data:  users })
 })
 
 router.get("/new", (req, res) => {
@@ -36,7 +40,6 @@ router
     res.send(`Delete User With ID ${req.params.id}`)
   })
 
-const users = [{ name: "Kyle" }, { name: "Sally" }]
 router.param("id", (req, res, next, id) => {
   req.user = users[id]
   next()
